@@ -7,19 +7,19 @@ const Home = ({ navigation }: { navigation: any }) => {
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 <Text style={styles.text}>Near for you!</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
                     <Image source={require('../assets/img/burguerKing.svg')} style={styles.img} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
                     <Image source={require('../assets/img/pizzaHut.svg')} style={styles.img} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
                     <Image source={require('../assets/img/mcDonalds.svg')} style={styles.img} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
                     <Image source={require('../assets/img/outBack.svg')} style={styles.img} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
                     <Image source={require('../assets/img/spolleto.svg')} style={styles.img} />
                 </TouchableOpacity>
             </ScrollView>
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         overflow: "scroll",
-        marginHorizontal: 20,
     },
 });
 
