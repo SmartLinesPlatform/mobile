@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 
-const Header = ({navigation}: {navigation: any}) => {
-  function pressionado(){
+const Header = ({ navigation }: { navigation: any }) => {
+  function pressionado() {
     console.log('Olá mundo');
   }
   return (
     <View style={styles.header}>
+      {/* <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+        <Image source={require('../assets/icons/drawerBar1.svg')} style={styles.icon} />
+      </TouchableOpacity> */}
       <MaterialIcons
         name="menu"
         size={30}
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#094067",
+    backgroundColor: "#4285F4",
   },
   headerText: {
     fontWeight: "bold",
@@ -42,6 +45,13 @@ const styles = StyleSheet.create({
     left: 12,
     color: "#fff",
   },
+  // iconFigma: {
+  //   width: 30,
+  //   position: "absolute",
+  //   left: 12,
+  //   color: "#fff",
+  // },
+
 });
 
 

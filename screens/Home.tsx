@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 415,
         height: 130,
-
     },
     absoluteView: {
         flex: 1,

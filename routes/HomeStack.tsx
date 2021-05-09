@@ -6,9 +6,9 @@ import Header from "../shared/Header";
 const screens = {
     Home: {
         screen: Home,
-        navigationOptions: ({ navigation } : {navigation: any}) => {
+        navigationOptions: ({ navigation }: { navigation: any }) => {
             return {
-                headerTitle: () => <Header navigation={navigation}/>,
+                headerTitle: () => <Header navigation={navigation} />,
             };
         },
     },
@@ -17,7 +17,7 @@ const screens = {
 const HomeStack = createStackNavigator(screens, {
     defaultNavigationOptions: {
         headerTintColor: "#111",
-        headerStyle: { backgroundColor: "#094067", height: 80 },
+        headerStyle: { backgroundColor: "#4285F4", height: 80 },
     },
 });
 

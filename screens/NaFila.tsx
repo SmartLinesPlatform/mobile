@@ -1,21 +1,23 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Fila = ({ navigation }: { navigation: any }) => {
+const NaFila = ({ navigation }: { navigation: any }) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.posicao}>Current Position</Text>
-            <Text style={styles.numero}>15</Text>
-            <Text style={styles.contagem}>Estimated Time: 25 minutes</Text>
-            <TouchableOpacity style={styles.enterLine} onPress={() => navigation.navigate("NaFila")}>
-                <Text style={styles.enterLineText}>Enter Line</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.giveUp} onPress={() => navigation.navigate("Home")}>
-                <Text style={styles.giveUpText}>Give Up</Text>
-            </TouchableOpacity>
-
-                <Image source={require('../assets/img/fila.svg')} style={styles.img}/>
+                <Text style={styles.posicao}>Current Position</Text>
+                <Text style={styles.numero}>15</Text>
+                <Text style={styles.contagem}>Estimated Time: 03 minutes</Text>
+                <TouchableOpacity style={styles.giveUp} onPress={() => navigation.navigate("Home")}>
+                    <Text style={styles.giveUpText}>Give Up</Text>
+                </TouchableOpacity>
+                <Text style={styles.text}>Maybe this interest you:</Text>
+                <TouchableOpacity>
+                    <Image source={require('../assets/img/centauro.svg')} style={styles.img} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image source={require('../assets/img/magalu.svg')} style={styles.img} />
+                </TouchableOpacity>
         </SafeAreaView>
     );
 }
@@ -74,14 +76,20 @@ const styles = StyleSheet.create({
         color: "#FABB04",
         padding: 10,
     },
+    text: {
+        alignItems: "baseline",
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: "#ffff",
+        marginTop: "25px",
+        marginBottom: "25px",
+    },
     img: {
-        position: "absolute",
-        bottom: 0,
         alignItems: 'center',
-        width: '100%',
+        width: 415,
         height: 130,
-
+        marginBottom: 20,
     },
 });
 
-export default Fila;
+export default NaFila;

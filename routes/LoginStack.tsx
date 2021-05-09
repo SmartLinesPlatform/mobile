@@ -1,10 +1,11 @@
- import React from 'react';
- import { createStackNavigator } from "react-navigation-stack";
-import Fila from '../screens/Fila';
-import Header from '../shared/Header';
+import React from 'react';
+import { createStackNavigator } from "react-navigation-stack";
+import Login from '../screens/Login';
+import Header from "../shared/Header";
+
 const screens = {
-    Fila: {
-        screen: Fila,
+    Login: {
+        screen: Login,
         navigationOptions: ({ navigation } : {navigation: any}) => {
             return {
                 headerTitle: () => <Header navigation={navigation}/>,
@@ -13,11 +14,11 @@ const screens = {
     },
 };
 
-const FilaStack = createStackNavigator(screens, {
+const LoginStack = createStackNavigator(screens, {
     defaultNavigationOptions: {
         headerTintColor: "#111",
         headerStyle: { backgroundColor: "#4285F4", height: 80 },
     },
 });
 
-export default FilaStack;
+export default LoginStack;
