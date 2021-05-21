@@ -5,6 +5,7 @@ import FilaStack from "./FilaStack";
 import NaFilaStack from "./NaFilaStack";
 import LoginStack from "./LoginStack";
 import CriarContaStack from "./CriarContaStack";
+import LojasStack from "./LojasStack";
 
 const RootDrawerNavigator = createDrawerNavigator({
     LOGIN:{
@@ -21,6 +22,9 @@ const RootDrawerNavigator = createDrawerNavigator({
     },
     NAFILA: {
         screen: NaFilaStack,
+    },
+    LOJAS: {
+        screen: LojasStack,
     }
 });
 

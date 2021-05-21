@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const NaFila = ({ navigation }: { navigation: any }) => {
@@ -12,10 +12,10 @@ const NaFila = ({ navigation }: { navigation: any }) => {
                     <Text style={styles.giveUpText}>Give Up</Text>
                 </TouchableOpacity>
                 <Text style={styles.text}>Maybe this interest you:</Text>
-                <TouchableOpacity>
+                <TouchableOpacity  onPress={() => Linking.openURL('https://www.centauro.com.br/')}>
                     <Image source={require('../assets/img/centauro.svg')} style={styles.img} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => Linking.openURL('https://www.magazineluiza.com.br/')}>
                     <Image source={require('../assets/img/magalu.svg')} style={styles.img} />
                 </TouchableOpacity>
         </SafeAreaView>
