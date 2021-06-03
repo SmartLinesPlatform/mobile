@@ -1,17 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Login = ({ navigation }: { navigation: any }) => {
+const Login = () => {
     const [email, onChangeEmail] = React.useState("E-mail");
     const [password, onChangePassword] = React.useState("Password");
+
+    const navigation = useNavigation();
 
     return (
         <SafeAreaView style={styles.container}>
             <Image source={require('../assets/img/smartLine.svg')} style={styles.img} />
             <TextInput style={styles.input} onChangeText={onChangeEmail} value={email} />
             <TextInput style={styles.input} onChangeText={onChangePassword} value={password} />
-            <TouchableOpacity style={styles.signIn} onPress={() => navigation.navigate("Home")}>
+            <TouchableOpacity style={styles.signIn} onPress={() => navigation.navigate("Drawer")}>
                 <Text style={styles.signInText}>Sign in</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => console.log('Esqueceu a senha!')}>

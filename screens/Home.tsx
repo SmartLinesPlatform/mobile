@@ -1,10 +1,14 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../shared/Header";
 
-const Home = ({ navigation }: { navigation: any }) => {
+const Home: React.FC = () => {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
+            <Header />
             <ScrollView style={styles.scrollView}>
                 <Text style={styles.text}>Near for you!</Text>
                 <TouchableOpacity onPress={() => navigation.navigate("Fila")}>

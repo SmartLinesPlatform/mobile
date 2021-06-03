@@ -1,10 +1,14 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../shared/Header";
 
-const Fila = ({ navigation }: { navigation: any }) => {
+const Fila: React.FC = () => {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
+            <Header />
             <Text style={styles.posicao}>Current Position</Text>
             <Text style={styles.numero}>15</Text>
             <Text style={styles.contagem}>Estimated Time: 25 minutes</Text>
@@ -15,7 +19,7 @@ const Fila = ({ navigation }: { navigation: any }) => {
                 <Text style={styles.giveUpText}>Give Up</Text>
             </TouchableOpacity>
 
-                <Image source={require('../assets/img/fila.svg')} style={styles.img}/>
+            <Image source={require('../assets/img/fila.svg')} style={styles.img} />
         </SafeAreaView>
     );
 }

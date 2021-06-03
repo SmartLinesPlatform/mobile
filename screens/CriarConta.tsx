@@ -1,11 +1,14 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const CriarConta = ({ navigation }: { navigation: any }) => {
+const CriarConta = () => {
     const [name, onChangeName] = React.useState("Name");
     const [email, onChangeEmail] = React.useState("E-mail");
     const [password, onChangePassword] = React.useState("Password");
+
+    const navigation = useNavigation();
 
     return (
         <SafeAreaView style={styles.container}>
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#4285F4',
         alignItems: "center",
     },
-    text:{
+    text: {
         fontSize: 24,
         fontWeight: 'bold',
         maxWidth: 200,

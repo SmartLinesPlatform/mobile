@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation, DrawerActions } from "@react-navigation/native";
 
 
-const Header = ({ navigation }: { navigation: any }) => {
-  function pressionado() {
-    console.log('Olá mundo');
-  }
+const Header = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.header}>
       {/* <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
@@ -15,7 +14,7 @@ const Header = ({ navigation }: { navigation: any }) => {
       <MaterialIcons
         name="menu"
         size={30}
-        onPress={() => navigation.toggleDrawer()}
+        onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
         style={styles.icon}
       />
       <View>
@@ -28,7 +27,7 @@ const Header = ({ navigation }: { navigation: any }) => {
 const styles = StyleSheet.create({
   header: {
     width: "100%",
-    height: "100%",
+    padding: '10px',
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

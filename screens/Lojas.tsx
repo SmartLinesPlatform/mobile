@@ -1,10 +1,14 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../shared/Header";
 
-const Lojas = ({ navigation }: { navigation: any }) => {
+const Lojas = () => {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
+            <Header />
             <ScrollView style={styles.scrollView}>
                 <Text style={styles.text}>Nossas lojas parceiras!</Text>
                 <TouchableOpacity onPress={() => Linking.openURL('https://www.burgerking.com.br/')}>

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Navigator from './routes/Drawer';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import Navigator from './routes';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Navigator/>
-    </View>
-    );
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <Navigator />
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
 }
 
 const styles = StyleSheet.create({

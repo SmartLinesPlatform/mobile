@@ -1,23 +1,27 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../shared/Header";
 
-const NaFila = ({ navigation }: { navigation: any }) => {
+const NaFila = () => {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
-                <Text style={styles.posicao}>Current Position</Text>
-                <Text style={styles.numero}>15</Text>
-                <Text style={styles.contagem}>Estimated Time: 03 minutes</Text>
-                <TouchableOpacity style={styles.giveUp} onPress={() => navigation.navigate("Home")}>
-                    <Text style={styles.giveUpText}>Give Up</Text>
-                </TouchableOpacity>
-                <Text style={styles.text}>Maybe this interest you:</Text>
-                <TouchableOpacity  onPress={() => Linking.openURL('https://www.centauro.com.br/')}>
-                    <Image source={require('../assets/img/centauro.svg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.magazineluiza.com.br/')}>
-                    <Image source={require('../assets/img/magalu.svg')} style={styles.img} />
-                </TouchableOpacity>
+            <Header />
+            <Text style={styles.posicao}>Current Position</Text>
+            <Text style={styles.numero}>15</Text>
+            <Text style={styles.contagem}>Estimated Time: 03 minutes</Text>
+            <TouchableOpacity style={styles.giveUp} onPress={() => navigation.navigate("Home")}>
+                <Text style={styles.giveUpText}>Give Up</Text>
+            </TouchableOpacity>
+            <Text style={styles.text}>Maybe this interest you:</Text>
+            <TouchableOpacity onPress={() => Linking.openURL('https://www.centauro.com.br/')}>
+                <Image source={require('../assets/img/centauro.svg')} style={styles.img} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL('https://www.magazineluiza.com.br/')}>
+                <Image source={require('../assets/img/magalu.svg')} style={styles.img} />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 }
