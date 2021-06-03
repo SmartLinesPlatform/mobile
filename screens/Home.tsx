@@ -23,7 +23,9 @@ const Home: React.FC = () => {
             <Header />
             <ScrollView style={{ width: '100%' }}>
                 <Text style={styles.text}>Near for you!</Text>
-                {lojas.map(loja => <BannerDaLoja key={loja.id} name={loja.name} src={loja.picture_url === '' ? defaultBanner : `${baseUrl}/files/${loja.picture_url}`} id={loja.id} />)}
+                {lojas.map(loja => <BannerDaLoja onClick={() => navigation.navigate("Fila", {
+                    id: loja.id
+                })} key={loja.id} name={loja.name} src={loja.picture_url === '' ? defaultBanner : `${baseUrl}/files/${loja.picture_url}`} id={loja.id} />)}
             </ScrollView>
         </SafeAreaView>
     );

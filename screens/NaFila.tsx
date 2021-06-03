@@ -2,13 +2,16 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState, useCallback } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Loja from "../models/Loja";
 import api from "../services/api";
+import BannerDaLoja from "../shared/BannerDaLoja";
 import Header from "../shared/Header";
-import { userId } from "../utils/constants";
+import { baseUrl, defaultBanner, userId } from "../utils/constants";
 
 const NaFila = () => {
     const navigation = useNavigation();
     const [currentPosition, setCurrentPosition] = useState(0);
+    const [lojas, setLojas] = useState([] as Loja[]);
     useEffect(() => {
         async function load() {
             const { data } = await api.post('/customers/current-position-in-line', {
@@ -16,6 +19,9 @@ const NaFila = () => {
             });
             console.log(data);
             setCurrentPosition(data.position);
+
+            const { data: dataLojas } = await api.get('/stores?partners=true&lat=-1.432459&lng=-48.455070');
+            setLojas(dataLojas);
         }
         load();
     }, []);
@@ -40,12 +46,7 @@ const NaFila = () => {
             </TouchableOpacity>
             <ScrollView style={{ width: '100%' }}>
                 <Text style={styles.text}>Maybe this interest you:</Text>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.centauro.com.br/')}>
-                    <Image source={require('../assets/img/centauro.svg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.magazineluiza.com.br/')}>
-                    <Image source={require('../assets/img/magalu.svg')} style={styles.img} />
-                </TouchableOpacity>
+                {lojas.map(loja => <BannerDaLoja onClick={() => Linking.openURL(loja.website_url)} key={loja.id} name={loja.name} src={loja.picture_url === '' ? defaultBanner : `${baseUrl}/files/${loja.picture_url}`} id={loja.id} />)}
             </ScrollView>
         </SafeAreaView>
     );

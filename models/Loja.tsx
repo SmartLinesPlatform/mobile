@@ -13,6 +13,7 @@ export default interface Loja {
   ads: string[]
   admins: any[]
   coordinates: Coordinates
+  website_url: string;
 }
 
 export interface Lines {

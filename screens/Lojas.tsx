@@ -1,31 +1,29 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Loja from "../models/Loja";
+import api from "../services/api";
+import BannerDaLoja from "../shared/BannerDaLoja";
 import Header from "../shared/Header";
+import { baseUrl, defaultBanner } from "../utils/constants";
 
 const Lojas = () => {
     const navigation = useNavigation();
+    const [lojas, setLojas] = useState([] as Loja[]);
+    useEffect(() => {
+        async function load() {
+            const { data } = await api.get('/stores?partners=true&lat=-1.432459&lng=-48.455070');
+            setLojas(data);
+        }
+        load();
+    }, []);
     return (
         <SafeAreaView style={styles.container}>
             <Header />
             <ScrollView style={styles.scrollView}>
                 <Text style={styles.text}>Nossas lojas parceiras!</Text>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.burgerking.com.br/')}>
-                    <Image source={require('../assets/logos/burgerKingLogo.jpg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.pizzahut.com.br/')}>
-                    <Image source={require('../assets/logos/pizzaHutLogo.jpg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.mcdonalds.com.br/')}>
-                    <Image source={require('../assets/logos/mcDonaldsLogo.jpg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.outback.com.br/')}>
-                    <Image source={require('../assets/logos/outBackLogo.jpg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.spoleto.com.br/tabs/cardapioapp')}>
-                    <Image source={require('../assets/logos/spoletoLogo.png')} style={styles.img} />
-                </TouchableOpacity>
+                {lojas.map(loja => <BannerDaLoja onClick={() => Linking.openURL(loja.website_url)} key={loja.id} name={loja.name} src={loja.picture_url === '' ? defaultBanner : `${baseUrl}/files/${loja.picture_url}`} id={loja.id} />)}
             </ScrollView>
         </SafeAreaView>
     );

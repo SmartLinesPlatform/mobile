@@ -8,18 +8,16 @@ interface props {
   src: string;
   id: string;
   name: string;
+  onClick?: () => void;
 }
 
-const BannerDaLoja: React.FC<props> = ({ src, id, name }) => {
+const BannerDaLoja: React.FC<props> = ({ src, id, name, onClick }) => {
   const navigation = useNavigation();
   const [img, setImg] = useState(src);
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => navigation.navigate("Fila", {
-        id
-      }
-      )}>
+      onPress={onClick}>
       <Image source={{ uri: img }} style={styles.img} />
       <Text style={styles.name}>
         {name}
