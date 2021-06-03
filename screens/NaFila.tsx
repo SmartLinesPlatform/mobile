@@ -1,27 +1,52 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import api from "../services/api";
 import Header from "../shared/Header";
+import { userId } from "../utils/constants";
 
 const NaFila = () => {
     const navigation = useNavigation();
+    const [currentPosition, setCurrentPosition] = useState(0);
+    useEffect(() => {
+        async function load() {
+            const { data } = await api.post('/customers/current-position-in-line', {
+                customer_id: userId
+            });
+            console.log(data);
+            setCurrentPosition(data.position);
+        }
+        load();
+    }, []);
+
+    const giveUp = useCallback(async () => {
+        const { data } = await api.post(`/customers/give-up-position-in-line`, {
+            customer_id: userId,
+        });
+
+        navigation.navigate("Home")
+
+        console.log(data);
+    }, [])
     return (
         <SafeAreaView style={styles.container}>
             <Header />
             <Text style={styles.posicao}>Current Position</Text>
-            <Text style={styles.numero}>15</Text>
-            <Text style={styles.contagem}>Estimated Time: 03 minutes</Text>
-            <TouchableOpacity style={styles.giveUp} onPress={() => navigation.navigate("Home")}>
+            <Text style={styles.numero}>{currentPosition}</Text>
+            <Text style={styles.contagem}>Estimated Time: {currentPosition * 3} minutes</Text>
+            <TouchableOpacity style={styles.giveUp} onPress={giveUp}>
                 <Text style={styles.giveUpText}>Give Up</Text>
             </TouchableOpacity>
-            <Text style={styles.text}>Maybe this interest you:</Text>
-            <TouchableOpacity onPress={() => Linking.openURL('https://www.centauro.com.br/')}>
-                <Image source={require('../assets/img/centauro.svg')} style={styles.img} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => Linking.openURL('https://www.magazineluiza.com.br/')}>
-                <Image source={require('../assets/img/magalu.svg')} style={styles.img} />
-            </TouchableOpacity>
+            <ScrollView style={{ width: '100%' }}>
+                <Text style={styles.text}>Maybe this interest you:</Text>
+                <TouchableOpacity onPress={() => Linking.openURL('https://www.centauro.com.br/')}>
+                    <Image source={require('../assets/img/centauro.svg')} style={styles.img} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => Linking.openURL('https://www.magazineluiza.com.br/')}>
+                    <Image source={require('../assets/img/magalu.svg')} style={styles.img} />
+                </TouchableOpacity>
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -90,10 +115,11 @@ const styles = StyleSheet.create({
     },
     img: {
         alignItems: 'center',
-        width: 415,
+        width: '100%',
         height: 130,
         marginBottom: 20,
     },
 });
 
 export default NaFila;
+

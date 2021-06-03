@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <ScrollView>
+            <ScrollView style={{ width: '100%' }}>
                 <Text style={styles.text}>Near for you!</Text>
                 {lojas.map(loja => <BannerDaLoja key={loja.id} name={loja.name} src={loja.picture_url === '' ? defaultBanner : `${baseUrl}/files/${loja.picture_url}`} id={loja.id} />)}
             </ScrollView>

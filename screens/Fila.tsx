@@ -1,22 +1,59 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import api from "../services/api";
 import Header from "../shared/Header";
+import { userId } from "../utils/constants";
+
+interface routeParams {
+    id: string;
+}
 
 const Fila: React.FC = () => {
+    const route = useRoute();
     const navigation = useNavigation();
+    const { id } = route.params as routeParams;
+    const [lineId, setLineId] = useState(0);
+    const [currentPosition, setCurrentPosition] = useState(0);
+
+    useEffect(() => {
+        async function load() {
+
+            const { data: dataUser } = await api.get(`/customers/${userId}`);
+
+            if (dataUser.is_in_line) {
+                navigation.navigate("NaFila");
+            } else {
+                const { data } = await api.get(`/stores/${id}`);
+                setLineId(data.lines.attendance_line_id);
+                const { data: dataLine } = await api.get(`/lines/${data.lines.attendance_line_id}`);
+                setCurrentPosition(dataLine.orders.length);
+            }
+
+        }
+        load();
+    }, [id]);
+
+    const enterLine = useCallback(async () => {
+        const { data } = await api.post(`/customers/enter-in-line`, {
+            customer_id: userId,
+            store_id: id
+        });
+
+        navigation.navigate("NaFila")
+
+        console.log(data);
+    }, [id])
+
     return (
         <SafeAreaView style={styles.container}>
             <Header />
             <Text style={styles.posicao}>Current Position</Text>
-            <Text style={styles.numero}>15</Text>
-            <Text style={styles.contagem}>Estimated Time: 25 minutes</Text>
-            <TouchableOpacity style={styles.enterLine} onPress={() => navigation.navigate("NaFila")}>
+            <Text style={styles.numero}>{currentPosition}</Text>
+            <Text style={styles.contagem}>Estimated Time: {currentPosition * 3} minutes</Text>
+            <TouchableOpacity style={styles.enterLine} onPress={enterLine}>
                 <Text style={styles.enterLineText}>Enter Line</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.giveUp} onPress={() => navigation.navigate("Home")}>
-                <Text style={styles.giveUpText}>Give Up</Text>
             </TouchableOpacity>
 
             <Image source={require('../assets/img/fila.svg')} style={styles.img} />
