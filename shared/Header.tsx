@@ -8,18 +8,12 @@ const Header = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.header}>
-      {/* <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Image source={require('../assets/icons/drawerBar1.svg')} style={styles.icon} />
-      </TouchableOpacity> */}
       <MaterialIcons
         name="menu"
         size={30}
         onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
         style={styles.icon}
       />
-      <View>
-        <Text style={styles.headerText}>Smart Lines</Text>
-      </View>
     </View>
   );
 }
@@ -27,7 +21,7 @@ const Header = () => {
 const styles = StyleSheet.create({
   header: {
     width: "100%",
-    padding: '10px',
+    padding: '20px',
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -44,12 +38,6 @@ const styles = StyleSheet.create({
     left: 12,
     color: "#fff",
   },
-  // iconFigma: {
-  //   width: 30,
-  //   position: "absolute",
-  //   left: 12,
-  //   color: "#fff",
-  // },
 
 });
 

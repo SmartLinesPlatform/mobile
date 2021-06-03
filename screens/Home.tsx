@@ -1,31 +1,29 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Loja from "../models/Loja";
+import api from "../services/api";
+import BannerDaLoja from "../shared/BannerDaLoja";
 import Header from "../shared/Header";
+import { baseUrl, defaultBanner } from "../utils/constants";
 
 const Home: React.FC = () => {
     const navigation = useNavigation();
+    const [lojas, setLojas] = useState([] as Loja[]);
+    useEffect(() => {
+        async function load() {
+            const { data } = await api.get('/stores?restaurants=true&lat=-1.432459&lng=-48.455070');
+            setLojas(data);
+        }
+        load();
+    }, []);
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <ScrollView style={styles.scrollView}>
+            <ScrollView>
                 <Text style={styles.text}>Near for you!</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
-                    <Image source={require('../assets/img/burguerKing.svg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
-                    <Image source={require('../assets/img/pizzaHut.svg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
-                    <Image source={require('../assets/img/mcDonalds.svg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
-                    <Image source={require('../assets/img/outBack.svg')} style={styles.img} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Fila")}>
-                    <Image source={require('../assets/img/spolleto.svg')} style={styles.img} />
-                </TouchableOpacity>
+                {lojas.map(loja => <BannerDaLoja key={loja.id} name={loja.name} src={loja.picture_url === '' ? defaultBanner : `${baseUrl}/files/${loja.picture_url}`} id={loja.id} />)}
             </ScrollView>
         </SafeAreaView>
     );
@@ -34,8 +32,10 @@ const Home: React.FC = () => {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         flex: 1,
         backgroundColor: '#4285F4',
+        alignItems: "center"
     },
     logoCesupa: {
         width: 432,
@@ -68,10 +68,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         justifyContent: 'center',
         backgroundColor: 'transparent',
-    },
-    scrollView: {
-        overflow: "scroll",
-    },
+    }
 });
 
 export default Home;
